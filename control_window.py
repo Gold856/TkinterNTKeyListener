@@ -13,18 +13,25 @@ root = tk.Tk()
 root.geometry(str(root.winfo_screenwidth())+"x400-1+" + str(0))
 c = tk.Canvas(root)
 frame = Frame(root)
-bWidth = 10
-bHeight = 5
 
-numpad1_button = Button(frame, text="NUMPAD1", width=bWidth, height=bHeight)
-numpad2_button = Button(frame, text="NUMPAD2", width=bWidth, height=bHeight)
-numpad3_button = Button(frame, text="NUMPAD3", width=bWidth, height=bHeight)
-numpad4_button = Button(frame, text="NUMPAD4", width=bWidth, height=bHeight)
-numpad5_button = Button(frame, text="NUMPAD5", width=bWidth, height=bHeight)
-numpad6_button = Button(frame, text="NUMPAD6", width=bWidth, height=bHeight)
-numpad7_button = Button(frame, text="NUMPAD7", width=bWidth, height=bHeight)
-numpad8_button = Button(frame, text="NUMPAD8", width=bWidth, height=bHeight)
-numpad9_button = Button(frame, text="NUMPAD9", width=bWidth, height=bHeight)
+
+class KeyboardButton(Button):
+    button_width = 10
+    button_height = 5
+
+    def __init__(self, text: str = None) -> None:
+        super().__init__(frame, text=text, width=self.button_width, height=self.button_height)
+
+
+numpad1_button = KeyboardButton(text="NUMPAD1")
+numpad2_button = KeyboardButton(text="NUMPAD2")
+numpad3_button = KeyboardButton(text="NUMPAD3")
+numpad4_button = KeyboardButton(text="NUMPAD4")
+numpad5_button = KeyboardButton(text="NUMPAD5")
+numpad6_button = KeyboardButton(text="NUMPAD6")
+numpad7_button = KeyboardButton(text="NUMPAD7")
+numpad8_button = KeyboardButton(text="NUMPAD8")
+numpad9_button = KeyboardButton(text="NUMPAD9")
 numpad1_button.grid(row=2, column=0, padx=20, pady=20)
 numpad2_button.grid(row=2, column=1, padx=20, pady=20)
 numpad3_button.grid(row=2, column=2, padx=20, pady=20)
@@ -45,5 +52,4 @@ def update():
 
 # start sensor update loop
 update()
-keyboard.on_press_key
 root.mainloop()
