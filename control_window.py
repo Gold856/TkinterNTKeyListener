@@ -18,9 +18,11 @@ frame = Frame(root)
 class KeyboardButton(Button):
     button_width = 10
     button_height = 5
+    button_pressed_color = "lime"
 
     def __init__(self, text: str = None) -> None:
-        super().__init__(frame, text=text, width=self.button_width, height=self.button_height)
+        super().__init__(frame, text=text, width=self.button_width,
+                         height=self.button_height, activebackground=self.button_pressed_color)
 
 
 numpad1_button = KeyboardButton(text="NUMPAD1")
