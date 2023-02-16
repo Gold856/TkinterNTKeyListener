@@ -1,12 +1,22 @@
 import tkinter as tk
 from tkinter import *
 
-from networktables import NetworkTables
+from networktables import NetworkTable, NetworkTables
 from pynput import keyboard
 
 # intialize network tables and get the smart dashboard
 NetworkTables.initialize(server='10.0.20.2')
-sd = NetworkTables.getTable('SmartDashboard')
+NetworkTables.startDSClient()
+table: NetworkTable = NetworkTables.getTable('SmartDashboard')
+table.putBoolean("NUMPAD1", False)
+table.putBoolean("NUMPAD2", False)
+table.putBoolean("NUMPAD3", False)
+table.putBoolean("NUMPAD4", False)
+table.putBoolean("NUMPAD5", False)
+table.putBoolean("NUMPAD6", False)
+table.putBoolean("NUMPAD7", False)
+table.putBoolean("NUMPAD8", False)
+table.putBoolean("NUMPAD9", False)
 
 # setup tkinter (width of the screen, 100 px tall)
 root = tk.Tk()
@@ -27,31 +37,41 @@ class KeyboardButton(Button):
 
 def key_down(event: keyboard.KeyCode):
     if type(event) == keyboard.KeyCode:
-        print(event.vk)
         # Check to make sure the keys come from the numpad
         match event.vk:
             case 97:
                 numpad1_button.configure(state="active")
+                table.putBoolean("NUMPAD1", True)
             case 98:
                 numpad2_button.configure(state="active")
+                table.putBoolean("NUMPAD2", True)
             case 99:
                 numpad3_button.configure(state="active")
+                table.putBoolean("NUMPAD3", True)
             case 100:
                 numpad4_button.configure(state="active")
+                table.putBoolean("NUMPAD4", True)
             case 101:
                 numpad5_button.configure(state="active")
+                table.putBoolean("NUMPAD5", True)
             case 102:
                 numpad6_button.configure(state="active")
+                table.putBoolean("NUMPAD6", True)
             case 103:
                 numpad7_button.configure(state="active")
+                table.putBoolean("NUMPAD7", True)
             case 104:
                 numpad8_button.configure(state="active")
+                table.putBoolean("NUMPAD8", True)
             case 105:
                 numpad9_button.configure(state="active")
+                table.putBoolean("NUMPAD9", True)
             case 109:
                 minus_button.configure(state="active")
+                table.putBoolean("-", True)
             case 107:
                 plus_button.configure(state="active")
+                table.putBoolean("+", True)
 
 
 def key_up(event: keyboard.KeyCode):
@@ -60,26 +80,37 @@ def key_up(event: keyboard.KeyCode):
         match event.vk:
             case 97:
                 numpad1_button.configure(state="normal")
+                table.putBoolean("NUMPAD1", False)
             case 98:
                 numpad2_button.configure(state="normal")
+                table.putBoolean("NUMPAD2", False)
             case 99:
                 numpad3_button.configure(state="normal")
+                table.putBoolean("NUMPAD3", False)
             case 100:
                 numpad4_button.configure(state="normal")
+                table.putBoolean("NUMPAD4", False)
             case 101:
                 numpad5_button.configure(state="normal")
+                table.putBoolean("NUMPAD5", False)
             case 102:
                 numpad6_button.configure(state="normal")
+                table.putBoolean("NUMPAD6", False)
             case 103:
                 numpad7_button.configure(state="normal")
+                table.putBoolean("NUMPAD7", False)
             case 104:
                 numpad8_button.configure(state="normal")
+                table.putBoolean("NUMPAD8", False)
             case 105:
                 numpad9_button.configure(state="normal")
+                table.putBoolean("NUMPAD9", False)
             case 109:
                 minus_button.configure(state="normal")
+                table.putBoolean("-", False)
             case 107:
                 plus_button.configure(state="normal")
+                table.putBoolean("+", False)
 
 
 numpad1_button = KeyboardButton(text="NUMPAD1")
