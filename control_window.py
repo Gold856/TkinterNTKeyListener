@@ -4,7 +4,7 @@ from tkinter import *
 from networktables import NetworkTable, NetworkTables
 from pynput import keyboard
 
-# intialize network tables and get the smart dashboard
+# Initialize NetworkTables and get the SmartDashboard table
 NetworkTables.initialize(server='10.0.20.2')
 NetworkTables.startDSClient()
 table: NetworkTable = NetworkTables.getTable('SmartDashboard')
@@ -18,14 +18,17 @@ table.putBoolean("NUMPAD7", False)
 table.putBoolean("NUMPAD8", False)
 table.putBoolean("NUMPAD9", False)
 
-# setup tkinter (width of the screen, 100 px tall)
+# setup tkinter (width of the screen)
 root = tk.Tk()
 root.geometry(str(root.winfo_screenwidth())+"x400-1+" + str(0))
 c = tk.Canvas(root)
 frame = Frame(root)
 
 
+
+
 class KeyboardButton(Button):
+    """ A modified button that flashes green when active""" 
     button_width = 10
     button_height = 5
     button_pressed_color = "lime"
@@ -113,6 +116,7 @@ def key_up(event: keyboard.KeyCode):
                 table.putBoolean("+", False)
 
 
+# Create the keyboard buttons
 numpad1_button = KeyboardButton(text="NUMPAD1")
 numpad2_button = KeyboardButton(text="NUMPAD2")
 numpad3_button = KeyboardButton(text="NUMPAD3")
@@ -124,6 +128,7 @@ numpad8_button = KeyboardButton(text="NUMPAD8")
 numpad9_button = KeyboardButton(text="NUMPAD9")
 minus_button = KeyboardButton(text="-")
 plus_button = KeyboardButton(text="+")
+# Place the buttons on the grid
 numpad1_button.grid(row=2, column=0, padx=20, pady=20)
 numpad2_button.grid(row=2, column=1, padx=20, pady=20)
 numpad3_button.grid(row=2, column=2, padx=20, pady=20)
@@ -135,7 +140,10 @@ numpad8_button.grid(row=0, column=1, padx=20, pady=20)
 numpad9_button.grid(row=0, column=2, padx=20, pady=20)
 minus_button.grid(row=0, column=4, padx=20, pady=20)
 plus_button.grid(row=1, column=4, padx=20, pady=20)
+# Center everything
 frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+# Activate keyboard listeners
 keyboard_listener = keyboard.Listener(on_press=key_down, on_release=key_up)
 keyboard_listener.start()
+# GO!!
 root.mainloop()
